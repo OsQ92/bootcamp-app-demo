@@ -1,9 +1,10 @@
 .nav-bar {
-    background-color: darkblue;
+    background-color: grey;
     overflow: auto;
 }
 .nav-bar a {
     color: white;
+    text-decoration: none;
 }
   
 .nav-bar ul {
@@ -13,5 +14,14 @@
 }
 .nav-bar li {
     float: left;
-    margin: 5px 10px;
+    border-style: solid;
+    background-color: grey;
+    margin: 0;
+    padding: 10px;
+}
+
+.nav-bar li:first-child, li:last-child {
+    color:red;
+    border-top-left-radius: 0.2em;
+    border-bottom-left-radius: 0.2em;
 }

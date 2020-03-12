@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
+import Gallery from './Components/Gallery';
 
 import './App.css';
 
@@ -12,6 +13,8 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/gallery" component={Gallery} />
+        <Route render={() => "404 - not found!"} />
       </Switch>
     </Router>
   );
