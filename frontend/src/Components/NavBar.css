@@ -7,9 +7,7 @@
 }
   
 .nav-bar ul {
-    display: flex;
     list-style-type: none;
-    padding: 0;
 }
 .nav-bar li {
     background-color: #101010;
