@@ -1,21 +1,25 @@
-//https://css-tricks.com/creating-animations-using-react-spring/
-
 import React from 'react';
 import MessageBox from './MessageBox';
-import './EmailForm.css';
+import {EmailFormContainer} from './EmailForm.styled';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default class EmailForm extends React.Component {
-    state = {
-        confirmed: false,
-        message: "",
-        showMessage: false,
-        email: {
-            firstname: "",
-            lastname: "",
-            subject: "",
-            message: ""
+    constructor( props ) {
+        super( props );
+        this.state = {
+            confirmed: false,
+            message: "",
+            showMessage: false,
+            email: {
+                firstname: "",
+                lastname: "",
+                subject: "",
+                message: ""
+            }
         }
-    }
+        this._reCaptchaRef = React.createRef();
+      }
+
     
     handleInputChange(event) {
         const target = event.target;
@@ -30,7 +34,7 @@ export default class EmailForm extends React.Component {
         });
         console.log(JSON.stringify(this.state.email));
     }
-    
+
     onSave(event) {
         event.preventDefault();
         fetch('/api/email', {
@@ -45,12 +49,10 @@ export default class EmailForm extends React.Component {
         .then(data => {
             if(data.accepted.length){ 
                 this.setState({
-                    confirmed: true, 
                     message: "Message delivered", 
                     showMessage: true}); 
             } else { 
                 this.setState({
-                    confirmed: false, 
                     message: "Message delivery failed", 
                     showMessage: true
                 }); 
@@ -58,19 +60,33 @@ export default class EmailForm extends React.Component {
         })
         .catch(err => {
             this.setState({
-                confirmed: false, 
                 message: "Message delivery failed", 
                 showMessage: true
             });
             console.log(err)});
     }
+
+    onChange = value => {
+        value ? this.setState({confirmed: true}) : 
+                this.setState({confirmed: false})
+        
+        console.log(this.state.confirmed)
+        console.log(this.value)
+    }
       closeModal() {
         this.setState({ showMessage: false });
     }
 
+    asyncScriptOnLoad = () => {
+        this.setState({ callback: "called!" });
+        console.log("scriptLoad - reCaptcha Ref-", this._reCaptchaRef);
+      };
+
     render() {
+        let button = this.state.confirmed ?
+            (<button type="submit">Send</button>) : null;
         return (
-            <div className="email">
+            <EmailFormContainer>
                 <form onSubmit={(event) => this.onSave(event)} >
                     <label>First Name</label>
                     <input required type="text" id="fname" name="firstname" 
@@ -92,14 +108,20 @@ export default class EmailForm extends React.Component {
                     placeholder="Write message.." 
                     onChange={(event) => this.handleInputChange(event)}></textarea>
                     
-                    <button type="submit" disabled={this.state.confirmed}>Send</button>      
+                    {button}    
                 </form>
+                <ReCAPTCHA
+                        ref={this._reCaptchaRef}
+                        sitekey=""
+                        onChange={ this.onChange }
+                        asyncScriptOnLoad={this.asyncScriptOnLoad}
+                />
             <MessageBox 
                 message={this.state.message} 
                 open={this.state.showMessage} 
                 close={() => this.closeModal()}>
             </MessageBox>
-            </div>
+            </EmailFormContainer>
        );
     }
 }
