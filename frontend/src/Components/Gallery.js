@@ -31,8 +31,9 @@ export default class Gallery extends React.Component {
             {
                 images: data.map((item) => {
                 let image = {
-                    "original": item.imageUrl, 
-                    "thumbnail": item.thumbUrl,
+                    "original": item.img_url,
+                    "fullscreen": item.img_url,
+                    "thumbnail": item.thumb_url,
                     "description": item.description
                 }
                 return image;
@@ -45,8 +46,10 @@ export default class Gallery extends React.Component {
         return (
             <div className="gallery">
                 <ImageGallery 
-                    items={this.state.images} 
+                    items={this.state.images}
+                    showThumbnails={false} 
                     slideInterval={20000}
+                    showPlayButton={false}
                 />
             </div>
         );
