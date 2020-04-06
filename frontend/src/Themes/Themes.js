@@ -2,7 +2,7 @@
 //npm install --save styled-components
 export const lightTheme = {
     body: '#D0D0D0',
-    text: '#363537',
+    text: '#000000',
     background: '#909090',
     navbar: '#A7B1BD',
     hover: '#909090',
