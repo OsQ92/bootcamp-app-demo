@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Home from './Components/Home';
@@ -19,7 +19,7 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <React.Fragment>
       <GlobalStyles />
-      <AppContainer>
+        <AppContainer>
           <Router>
             <NavBar toggleTheme={toggleTheme} />
             <Switch>
