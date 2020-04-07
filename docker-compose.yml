@@ -11,6 +11,11 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
+      - G_CLIENT_ID
+      - G_CLIENT_SECRET
+      - G_REFRESH_TOKEN
+      - G_REDIRECT_URL
+      - G_TARGET
     ports:
       - 4000:4000
   db:
