@@ -1,10 +1,10 @@
 const pgp = require('pg-promise')();
 const db = pgp({
-    host: process.env.POSTGRES_HOST || "localhost",
-    port: process.env.POSTGRES_PORT || "5432",
-    database: process.env.POSTGRES_DB || "postgres",
-    user: process.env.POSTGRES_USER || "postgres",
-    password: process.env.POSTGRES_PASSWORD || "ossimies"
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    database: process.env.POSTGRES_DB, 
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD
 });
 
 const imageList = [
